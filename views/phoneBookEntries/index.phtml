@@ -1,1 +1,45 @@
-<h1>Książka telefoniczna</h1>
+<div class="container mt-5 px-3">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1>Książka telefoniczna</h1>
+        <a href="/add" class="btn btn-primary">Dodaj</a>
+    </div>
+    <?= (isset($errors) ? displayErrors($errors) : '') ?>
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th>Imię i nazwisko</th>
+                <th>Numer telefonu</th>
+                <th>E-mail</th>
+                <th>Adres</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            /** @var \App\Models\BookEntry $entry */
+            foreach ($phoneBooksEntries ?? [] as $entry): ?>
+                <tr>
+                    <td><?= e($entry->getFirstName()) ?> <?= e($entry->getLastName()) ?></td>
+                    <td><?= e($entry->getPhone()) ?></td>
+                    <td><?= e($entry->getEmail()) ?></td>
+                    <td><?= nl2br(e($entry->getAddress())) ?></td>
+                    <td>
+                        <a href="/edit?id=<?= $entry->getId() ?>" class="btn btn-primary btn-sm">Edytuj</a>
+
+                        <form method="post" action="/" class="d-inline">
+                            <input type="hidden" name="id" value="<?= $entry->getId() ?>">
+                            <input type="hidden" name="_token"
+                                   value="<?= csrfToken('edit_phone_book_entry_' . $entry->getId()) ?>">
+                            <input type="hidden" name="method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm ms-1">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php
+            endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

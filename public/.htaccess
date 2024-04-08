@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /
+
+RewriteRule !(.js|.ico|.gif|.jpg|.jepg|.jpeg|.png|.css|.swf|.bmp|.tiff|.pdf|.htm|.csv|.xml|.gz|.txt|.docx|.doc|.rtf|.woff|.woff2|.svg|.ttf|.htm|.eot)$ index.php
