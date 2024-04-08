@@ -1,0 +1,15 @@
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    restart: no
+    volumes:
+      - .:/var/www/html
+
+
+# to upgrade an image run the following commands from time to time (it will destroy all data if you don't use volumes)
+# docker-compose down
+# docker-compose build --no-cache
+# docker-compose up
